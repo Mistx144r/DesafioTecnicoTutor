@@ -35,7 +35,7 @@ class AuthController {
 
         // Configurando as opções dos cookies pare mitigar ataques CSRF e leitura indevida por scripts js.
         session_set_cookie_params([
-            'lifetime' => 0, // Encerra a sessão assim que o user fechar o navegador/site.
+            'lifetime' => 0, // Encerra a sessão assim que o user fechar o navegador/página.
             'httponly' => true,
             'secure'   => true,
             'samesite' => 'Strict'

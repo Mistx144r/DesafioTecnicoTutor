@@ -41,6 +41,10 @@ $authController        = new AuthController();
 
 $authMiddleware        = new AuthMiddleware();
 
+// Aqui criei um dicionário com todas as possíveis rotas e seus respectivos métodos, para que uma mesma rota possa usufruir de vários métodos.
+// Adicionei também uma boolean "protected" para verificar se a rota precisa ou não utilizar o middleware de verificação de sessão.
+// Essa foi minha a approach para o roteamento já que não podia usar frameworks do PHP.
+
 $routes = [
     'POST:/solicitacao/criar'    => ['handler' => fn() => $solicitacaoController->criar($_POST),   'protected' => true],
     'POST:/solicitacao/listar'   => ['handler' => fn() => $solicitacaoController->listar($_POST),  'protected' => true],
