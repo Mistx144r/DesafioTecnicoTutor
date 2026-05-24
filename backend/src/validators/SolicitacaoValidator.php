@@ -10,11 +10,11 @@ class SolicitacaoValidator {
         $body = array_intersect_key($body, array_flip($allowed));
 
         if (isset($body['pagina']) && !is_numeric($body['pagina'])) {
-            throw new ApiException('Página inválida', 422);
+            throw new ApiException('Página inválida', 400);
         }
 
         if (isset($body['status']) && !in_array($body['status'], ['pendente', 'aprovada', 'rejeitada'])) {
-            throw new ApiException('Status inválido', 422);
+            throw new ApiException('Status inválido', 400);
         }
 
         // valores padrão
@@ -108,11 +108,11 @@ class SolicitacaoValidator {
 
     public static function validar_obter(array $body): void {
         if (empty($body['id'])) {
-            throw new ApiException('ID é obrigatório', 422);
+            throw new ApiException('ID é obrigatório', 400);
         }
 
         if (!is_numeric($body['id'])) {
-            throw new ApiException('ID inválido', 422);
+            throw new ApiException('ID inválido', 400);
         }
     }
 }

@@ -24,7 +24,11 @@ class Database {
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ];
 
-            self::$connection = new PDO($dsn, $user, $pass, $options);
+            try {
+                self::$connection = new PDO($dsn, $user, $pass, $options);
+            } catch (\PDOException $e) {
+                throw new \RuntimeException('Falha ao conectar ao banco de dados.');
+            }
         }
 
         return self::$connection;

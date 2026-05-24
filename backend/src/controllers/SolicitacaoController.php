@@ -14,20 +14,22 @@ class SolicitacaoController {
         $this->validador = new SolicitacaoValidator();
     }
 
-    public function listar(): void {
-        $body = $_POST;
+    public function listar($body): void
+    {
         $body = $this->validador::validar_lista($body);
         $dados = $this->solicitacao->listar($body);
         echo json_encode(['ok' => true, 'dados' => $dados]);
     }
 
-    public function obter($body): void {
+    public function obter($body): void
+    {
         SolicitacaoValidator::validar_obter($body);
         $dados = $this->solicitacao->obter((int) $body['id']);
         echo json_encode(['ok' => true, 'dados' => $dados]);
     }
 
-    public function resumo(): void {
+    public function resumo(): void
+    {
         $dados = $this->solicitacao->resumo();
         echo json_encode(['ok' => true, 'dados' => $dados]);
     }
@@ -38,7 +40,8 @@ class SolicitacaoController {
         echo json_encode(['ok' => true, 'dados' => ['id' => $id]]);
     }
 
-    public function decidir($body): void {
+    public function decidir($body): void
+    {
         SolicitacaoValidator::validar_decidir($body);
         $this->solicitacao->decidir($body);
         echo json_encode(['ok' => true]);
