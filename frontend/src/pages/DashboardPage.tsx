@@ -126,7 +126,9 @@ function DashboardPage() {
                             <TableHeader>
                                 <TableRow className="border-white/10 hover:bg-transparent">
                                     <TableHead className="text-white/50 px-4">Título</TableHead>
-                                    <TableHead className="text-white/50 px-4">Setor</TableHead>
+                                    <TableHead className="text-white/50 px-4 hidden lg:table-cell">
+                                        Setor
+                                    </TableHead>
                                     <TableHead className="text-white/50 px-4">Status</TableHead>
                                     <TableHead className="text-white/50 px-4 text-right">Data</TableHead>
                                 </TableRow>
@@ -154,8 +156,14 @@ function DashboardPage() {
                                             onClick={() => setModalId(s.id)}
                                             className="border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
                                         >
-                                            <TableCell className="text-white text-sm">{s.titulo}</TableCell>
-                                            <TableCell className="text-white/50 text-sm">{s.setor}</TableCell>
+                                            <TableCell className="max-w-0">
+                                                <div className="text-white text-sm truncate">
+                                                    {s.titulo}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="text-white/50 text-sm hidden sm:table-cell">
+                                                {s.setor}
+                                            </TableCell>
                                             <TableCell>
                                                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusConfig[s.status].className}`}>
                                                     {statusConfig[s.status].label}
