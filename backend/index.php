@@ -23,6 +23,8 @@ register_shutdown_function(function () {
     }
 });
 
+date_default_timezone_set('America/Sao_Paulo');
+
 header('Content-Type: application/json'); // Por padrão PHP retorna HTML, então para esse desafio precisei mudar o retorno para JSON.
 header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Credentials: true');

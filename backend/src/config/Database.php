@@ -25,6 +25,7 @@ class Database {
 
             try {
                 self::$connection = new PDO($dsn, $user, $pass, $options);
+                self::$connection->exec("SET time_zone = '-03:00'");
             } catch (\PDOException $e) {
                 throw new \RuntimeException('Falha ao conectar ao banco de dados.');
             }
