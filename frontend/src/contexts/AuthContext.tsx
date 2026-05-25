@@ -51,13 +51,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const navigate = useNavigate();
 
     const checkAuth = async () => {
-        console.log("HEREdwadaw")
         try {
             const me = await fetchMe()
             setUser(me)
             setStatus('authenticated')
-            console.log("HERE")
-
             if (window.location.pathname === '/login') {
                 navigate('/dashboard')
             }
