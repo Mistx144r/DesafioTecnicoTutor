@@ -46,8 +46,8 @@ ALLOWED_ORIGIN=https://seudominio.com
 
 ### Ativar as extensions no php.ini
 ```ini
-;mysqli -> mysqli
-;pdo_mysql -> pdo_mysql
+;extension=mysqli -> extension=mysqli
+;extension=pdo_mysql -> extension=pdo_mysql
 ```
 
 ### Rodando
