@@ -71,7 +71,7 @@ interface Props {
     onDecisao: () => void
 }
 
-export function SolicitacaoDetalhes({ id, open, onClose, onDecisao }: Props) {
+export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props) {
     const queryClient = useQueryClient()
     const [decidindo, setDecidindo] = useState(false)
     const [openAprovar, setOpenAprovar] = useState(false)
@@ -248,7 +248,7 @@ export function SolicitacaoDetalhes({ id, open, onClose, onDecisao }: Props) {
                         </div>
 
                         {/* Cards mobile */}
-                        <div className="md:hidden flex flex-col gap-3 w-full min-w-0 max-h-64 overflow-y-auto">
+                        <div className="md:hidden flex flex-col gap-3 w-full min-w-0 max-h-64 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
                             {solicitacao.itens.map((item) => (
                                 <div
                                     key={item.id}
@@ -325,7 +325,7 @@ export function SolicitacaoDetalhes({ id, open, onClose, onDecisao }: Props) {
                                                 Essa ação não pode ser desfeita.
                                             </AlertDialogDescription>
                                         </AlertDialogHeader>
-                                        <AlertDialogFooter className="flex flex-col w-full">
+                                        <AlertDialogFooter className="flex !flex-col-reverse">
                                             <AlertDialogAction
                                                 onClick={() => {
                                                     decidir('aprovar')
@@ -372,15 +372,15 @@ export function SolicitacaoDetalhes({ id, open, onClose, onDecisao }: Props) {
                                         {errors.justificativa && (
                                             <span className="text-red-400 text-xs">{errors.justificativa.message}</span>
                                         )}
-                                        <AlertDialogFooter className="flex flex-col">
+                                        <AlertDialogFooter className="flex !flex-col-reverse">
                                             <AlertDialogAction
                                                 onClick={onRejeitar}
                                                 disabled={decidindo}
-                                                className="bg-red-500 hover:bg-red-600 text-white font-semibold w-full rounded-lg px-5 py-1"
+                                                className="bg-red-500 hover:bg-red-600 text-white font-semibold w-full rounded-lg px-5 py-2"
                                             >
                                                 {decidindo ? <Loader2 className="w-4 h-4 animate-spin mr-auto ml-auto" /> : 'Rejeitar'}
                                             </AlertDialogAction>
-                                            <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 w-full rounded-lg px-5 py-1">
+                                            <AlertDialogCancel className="bg-transparent border-white/10 text-white hover:bg-white/10 w-full rounded-lg px-5 py-2">
                                                 Cancelar
                                             </AlertDialogCancel>
                                         </AlertDialogFooter>

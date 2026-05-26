@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/button'
 import { ShoppingCart, Clock, CheckCircle, XCircle } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
-import { SolicitacaoDetalhes } from '../components/SolicitacaoDetalhes'
+import { SolicitacaoDetalhesModal } from '../components/SolicitacaoDetalhesModal.tsx'
+import SolicitacaoCriarModal from '../components/SolicitacaoCriarModal.tsx'
 import {
     Table,
     TableBody,
@@ -35,15 +36,16 @@ const statusConfig = {
 }
 
 const kpiConfig = [
-    { key: 'total',     label: 'Total',     icon: ShoppingCart, className: 'text-white' },
-    { key: 'pendente',  label: 'Pendentes', icon: Clock,        className: 'text-amber-400' },
-    { key: 'aprovada',  label: 'Aprovadas', icon: CheckCircle,  className: 'text-tutor-accent' },
-    { key: 'rejeitada', label: 'Rejeitadas',icon: XCircle,      className: 'text-red-400' },
+    { key: 'total',     label: 'Total',      icon: ShoppingCart, className: 'text-white' },
+    { key: 'pendente',  label: 'Pendentes',  icon: Clock,        className: 'text-amber-400' },
+    { key: 'aprovada',  label: 'Aprovadas',  icon: CheckCircle,  className: 'text-tutor-accent' },
+    { key: 'rejeitada', label: 'Rejeitadas', icon: XCircle,      className: 'text-red-400' },
 ]
 
 function DashboardPage() {
     const navigate = useNavigate()
     const [modalId, setModalId] = useState<number | null>(null)
+    const [modalCriar, setModalCriar] = useState(false)
 
     const { data: resumoData, isLoading: resumoLoading, refetch: refetchResumo } = useQuery({
         queryKey: ['resumo'],
@@ -106,6 +108,7 @@ function DashboardPage() {
                         <div className="flex gap-2">
                             <Button
                                 size="sm"
+                                onClick={() => setModalCriar(true)}
                                 className="bg-tutor-accent hover:bg-tutor-accent-light text-tutor-dark font-semibold rounded-lg text-xs"
                             >
                                 + Solicitação
@@ -126,9 +129,7 @@ function DashboardPage() {
                             <TableHeader>
                                 <TableRow className="border-white/10 hover:bg-transparent">
                                     <TableHead className="text-white/50 px-4">Título</TableHead>
-                                    <TableHead className="text-white/50 px-4 hidden lg:table-cell">
-                                        Setor
-                                    </TableHead>
+                                    <TableHead className="text-white/50 px-4 hidden lg:table-cell">Setor</TableHead>
                                     <TableHead className="text-white/50 px-4">Status</TableHead>
                                     <TableHead className="text-white/50 px-4 text-right">Data</TableHead>
                                 </TableRow>
@@ -157,9 +158,7 @@ function DashboardPage() {
                                             className="border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
                                         >
                                             <TableCell className="max-w-0">
-                                                <div className="text-white text-sm truncate">
-                                                    {s.titulo}
-                                                </div>
+                                                <div className="text-white text-sm truncate">{s.titulo}</div>
                                             </TableCell>
                                             <TableCell className="text-white/50 text-sm hidden sm:table-cell">
                                                 {s.setor}
@@ -182,7 +181,7 @@ function DashboardPage() {
 
             </main>
 
-            <SolicitacaoDetalhes
+            <SolicitacaoDetalhesModal
                 id={modalId}
                 open={modalId !== null}
                 onClose={() => setModalId(null)}
@@ -190,6 +189,12 @@ function DashboardPage() {
                     setModalId(null)
                     refetch()
                 }}
+            />
+
+            <SolicitacaoCriarModal
+                open={modalCriar}
+                onClose={() => setModalCriar(false)}
+                onCriada={refetch}
             />
         </div>
     )

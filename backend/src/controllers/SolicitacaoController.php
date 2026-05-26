@@ -6,11 +6,11 @@ require_once __DIR__ . '/../models/Solicitacao.php';
 require_once __DIR__ . '/../validators/SolicitacaoValidator.php';
 
 class SolicitacaoController {
-    private Solicitacao $solicitacao;
+    private SolicitacaoSchema $solicitacao;
     private SolicitacaoValidator $validador;
 
     public function __construct() {
-        $this->solicitacao = new Solicitacao();
+        $this->solicitacao = new SolicitacaoSchema();
         $this->validador = new SolicitacaoValidator();
     }
 

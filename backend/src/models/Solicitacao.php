@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../exceptions/ApiException.php';
 
-class Solicitacao {
+class SolicitacaoSchema {
     private PDO $pdo;
 
     public function __construct() {
@@ -45,6 +45,7 @@ class Solicitacao {
             'solicitacoes'       => $solicitacoes,
             'total'              => $total,
             'pagina'             => $body['pagina'],
+            'total_paginas'      => intval(ceil($total / $porPagina)),
             'por_pagina'         => $porPagina,
             'tem_pagina_anterior' => $body['pagina'] > 1,
             'tem_proxima_pagina'  => ($body['pagina'] * $porPagina) < $total,

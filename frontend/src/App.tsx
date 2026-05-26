@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import ProtectedRoute from "./security/ProtectedRoute";
 import LoginPage from "./pages/LoginPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
+import SolicitacoesPage from "./pages/SolicitacoesPage.tsx";
 
 const queryClient = new QueryClient()
 
@@ -21,7 +22,7 @@ function App() {
 
                         <Route element={<ProtectedRoute />}>
                             <Route path="/dashboard" element={<DashboardPage />} />
-                            <Route path="/solicitacoes" element={<div className="flex w-screen h-screen bg-black" />} />
+                            <Route path="/solicitacoes" element={<SolicitacoesPage />} />
                         </Route>
                     </Routes>
                 </AuthProvider>
