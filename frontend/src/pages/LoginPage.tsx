@@ -16,7 +16,6 @@ const schema = z.object({
 })
 
 type FormData = z.infer<typeof schema>
-
 function LoginPage() {
     const [loading, setLoading] = useState(false)
     const { checkAuth } = useAuth()

@@ -145,7 +145,7 @@ function DashboardPage() {
                                         </TableRow>
                                     ))
                                 ) : recentes.length === 0 ? (
-                                    <TableRow className="hover:bg-transparent">
+                                    <TableRow className="hover:bg-transparent border-0">
                                         <TableCell colSpan={4} className="text-white/30 text-sm text-center py-8">
                                             Nenhuma solicitação encontrada
                                         </TableCell>

@@ -3,6 +3,7 @@ import { apiFetch } from '../contexts/AuthContext'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 import { Button } from '../../components/ui/button'
 import { Loader2, X, Plus, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SolicitacaoFormSchema, type SolicitacaoForm } from '../schemas'
@@ -55,6 +56,8 @@ function SolicitacaoCriarModal({ open, onClose, onCriada }: Props) {
         if (res.ok) {
             onCriada()
             fechar()
+        } else {
+            toast.error('Erro ao criar solicitação')
         }
     }
 
