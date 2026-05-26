@@ -63,8 +63,16 @@ class SolicitacaoValidator {
                 throw new ApiException("Quantidade do item $index deve ser maior que zero", 400);
             }
 
+            if ($item['quantidade'] > 99999999.99) {
+                throw new ApiException('Quantidade fora do limite permitido', 400);
+            }
+
             if (!isset($item['preco_estimado']) || $item['preco_estimado'] < 0) {
                 throw new ApiException("Preço do item $index deve ser maior ou igual a zero", 400);
+            }
+
+            if ($item['preco_estimado'] > 99999999.99) {
+                throw new ApiException("Preço do item $index fora do limite permitido", 400);
             }
         }
     }
