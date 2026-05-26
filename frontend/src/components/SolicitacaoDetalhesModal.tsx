@@ -205,15 +205,15 @@ export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props
                                                     {item.quantidade}
                                                 </TableCell>
                                                 <TableCell className="text-white/50 px-4 py-2 text-right whitespace-nowrap w-32">
-                                                    {parseFloat(item.preco_estimado as unknown as string).toLocaleString('pt-BR', {
+                                                    {item.preco_estimado.toLocaleString('pt-BR', {
                                                         style: 'currency',
                                                         currency: 'BRL',
                                                     })}
                                                 </TableCell>
                                                 <TableCell className="text-white px-4 py-2 text-right whitespace-nowrap w-36">
                                                     {(
-                                                        parseFloat(item.quantidade as unknown as string) *
-                                                        parseFloat(item.preco_estimado as unknown as string)
+                                                        item.quantidade *
+                                                        item.preco_estimado
                                                     ).toLocaleString('pt-BR', {
                                                         style: 'currency',
                                                         currency: 'BRL',
@@ -236,8 +236,8 @@ export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props
                                                 .reduce(
                                                     (acc, item) =>
                                                         acc +
-                                                        parseFloat(item.quantidade as unknown as string) *
-                                                        parseFloat(item.preco_estimado as unknown as string),
+                                                        item.quantidade *
+                                                        item.preco_estimado,
                                                     0
                                                 )
                                                 .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -266,7 +266,7 @@ export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props
                                     <div className="flex justify-between text-sm w-full">
                                         <span className="text-white/50">Preço</span>
                                         <span className="text-white whitespace-nowrap">
-                                            {parseFloat(item.preco_estimado as unknown as string).toLocaleString("pt-BR", {
+                                            {item.preco_estimado.toLocaleString("pt-BR", {
                                                 style: "currency",
                                                 currency: "BRL",
                                             })}
@@ -277,8 +277,8 @@ export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props
                                         <span className="text-white/50">Subtotal</span>
                                         <span className="text-tutor-accent whitespace-nowrap">
                                             {(
-                                                parseFloat(item.quantidade as unknown as string) *
-                                                parseFloat(item.preco_estimado as unknown as string)
+                                                item.quantidade *
+                                                item.preco_estimado
                                             ).toLocaleString("pt-BR", {
                                                 style: "currency",
                                                 currency: "BRL",
@@ -296,8 +296,8 @@ export function SolicitacaoDetalhesModal({ id, open, onClose, onDecisao }: Props
                                     .reduce(
                                         (acc, item) =>
                                             acc +
-                                            parseFloat(item.quantidade as unknown as string) *
-                                            parseFloat(item.preco_estimado as unknown as string),
+                                            item.quantidade *
+                                            item.preco_estimado,
                                         0
                                     ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                             </span>

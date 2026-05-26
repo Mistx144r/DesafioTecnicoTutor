@@ -62,7 +62,7 @@ function SolicitacoesPage() {
                             <Input
                                 placeholder="Buscar por título..."
                                 value={busca}
-                                onChange={(e: any) => { setBusca(e.target.value); setPagina(1) }}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setBusca(e.target.value); setPagina(1) }}
                                 className="bg-tutor-dark-card border-white/10 text-white placeholder:text-white/30 pl-9 py-2 rounded-full focus-visible:ring-tutor-accent"
                             />
                         </div>
