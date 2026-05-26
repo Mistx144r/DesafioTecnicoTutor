@@ -11,8 +11,8 @@ import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 
 const schema = z.object({
-    email: z.string().email('E-mail inválido'),
-    senha: z.string().min(1, 'Senha obrigatória'),
+    email: z.string().email('E-mail inválido').max(120, "E-mail muito grande."),
+    senha: z.string().min(1, 'Senha obrigatória').max(60, "Senha muito grande."),
 })
 
 type FormData = z.infer<typeof schema>

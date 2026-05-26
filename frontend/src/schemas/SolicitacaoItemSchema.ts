@@ -9,8 +9,8 @@ export const SolicitacaoItemSchema = z.object({
 
 export const ItemFormSchema = z.object({
     descricao:      z.string().min(1, 'Obrigatório'),
-    quantidade:     z.number().min(1, 'Mínimo 1'),
-    preco_estimado: z.number().min(0, 'Obrigatório'),
+    quantidade:     z.number().min(1, 'Mínimo 1').max(99999999.99, 'Valor muito alto'),
+    preco_estimado: z.number().min(0, 'Obrigatório').max(99999999.99, 'Valor muito alto'),
 })
 
 export type ItemSchema = z.infer<typeof SolicitacaoItemSchema>
