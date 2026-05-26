@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../exceptions/ApiException.php';
-
 class SolicitacaoSchema {
     private PDO $pdo;
 
@@ -79,7 +78,7 @@ class SolicitacaoSchema {
             $this->pdo->beginTransaction();
 
             $stmt = $this->pdo->prepare('INSERT INTO solicitacao (titulo, setor, prioridade, criado_por) VALUES (?, ?, ?, ?)');
-            $stmt->execute([$body['titulo'], $body['setor'], $body['prioridade'], $body['criado_por']]);
+            $stmt->execute([$body['titulo'], $body['setor'], $body['prioridade'], $_SESSION['user_id']]);
 
             $solicitacaoId = (int) $this->pdo->lastInsertId();
 

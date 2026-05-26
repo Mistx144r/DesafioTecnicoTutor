@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {apiFetch, useAuth} from '../contexts/AuthContext'
+import { apiFetch } from '../contexts/AuthContext'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 import { Button } from '../../components/ui/button'
 import { Loader2, X, Plus, Trash2 } from 'lucide-react'
@@ -19,7 +19,6 @@ const errorClass = 'text-red-400 text-xs mt-1'
 
 function SolicitacaoCriarModal({ open, onClose, onCriada }: Props) {
     const [salvando, setSalvando] = useState(false)
-    const auth = useAuth()
 
     const {
         register,
@@ -49,7 +48,6 @@ function SolicitacaoCriarModal({ open, onClose, onCriada }: Props) {
         formData.append('setor',      data.setor)
         formData.append('prioridade', data.prioridade)
         formData.append('itens',      JSON.stringify(data.itens))
-        formData.append('criado_por', String(auth.user?.id))
 
         const res = await apiFetch('/api/solicitacao/criar', { method: 'POST', body: formData })
         setSalvando(false)

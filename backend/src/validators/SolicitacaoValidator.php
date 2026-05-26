@@ -26,7 +26,7 @@ class SolicitacaoValidator {
     }
 
     public static function validar_criar(array $body): void {
-        $allowed = ['titulo', 'setor', 'prioridade', 'criado_por', 'itens']; // Modificar aqui caso queria aceitar novos campos
+        $allowed = ['titulo', 'setor', 'prioridade', 'itens']; // Modificar aqui caso queria aceitar novos campos
         $body = array_intersect_key($body, array_flip($allowed));
         $itens = json_decode($body['itens'], true);
 
@@ -44,14 +44,6 @@ class SolicitacaoValidator {
 
         if (!in_array($body['prioridade'], ['baixa', 'media', 'alta'])) {
             throw new ApiException('Prioridade inválida', 400);
-        }
-
-        if (empty($body['criado_por'])) {
-            throw new ApiException('ID do criador é obrigatório', 400);
-        }
-
-        if (!is_numeric($body['criado_por'])) {
-            throw new ApiException('ID do criador inválido', 400);
         }
 
         if (empty($body['itens'])) {

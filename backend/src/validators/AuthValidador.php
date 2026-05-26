@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../exceptions/ApiException.php';
 
 class AuthValidador {
-    public static function validar_login(array $body): array {
+    public function validar_login(array $body): array {
         $allowed = ['email', 'senha'];
         $body = array_intersect_key($body, array_flip($allowed));
 

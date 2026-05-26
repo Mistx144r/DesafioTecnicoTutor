@@ -126,4 +126,7 @@ vendor/
 # Dependencies
 node_modules/
 
+# .idea
+/frontend/.idea
+
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm
