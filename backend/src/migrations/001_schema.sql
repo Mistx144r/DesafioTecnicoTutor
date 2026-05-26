@@ -1,144 +1,85 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 23/05/2026 às 20:04
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- Host: 127.0.0.1    Database: modulo_compras
+-- ------------------------------------------------------
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `desafio`
---
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 CREATE DATABASE IF NOT EXISTS modulo_compras;
 USE modulo_compras;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Tabela: usuario
+-- ----------------------------
 
---
--- Estrutura para tabela `solicitacao`
---
-
-CREATE TABLE `solicitacao` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(120) NOT NULL,
-  `setor` varchar(60) NOT NULL,
-  `prioridade` enum('baixa','media','alta') NOT NULL,
-  `status` enum('pendente','aprovada','rejeitada') NOT NULL DEFAULT 'pendente',
-  `justificativa_decisao` varchar(255) DEFAULT NULL,
-  `criado_por` int(11) NOT NULL,
-  `criado_em` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `solicitacao_item`
---
-
-CREATE TABLE `solicitacao_item` (
-  `id` int(11) NOT NULL,
-  `solicitacao_id` int(11) NOT NULL,
-  `descricao` varchar(120) NOT NULL,
-  `quantidade` decimal(10,2) NOT NULL CHECK (`quantidade` > 0),
-  `preco_estimado` decimal(10,2) UNSIGNED NOT NULL
-) ;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `usuario`
---
-
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(80) NOT NULL,
-  `email` varchar(120) NOT NULL,
-  `senha_hash` varchar(255) NOT NULL,
-  `criado_em` datetime NOT NULL DEFAULT current_timestamp()
+    `id` int NOT NULL AUTO_INCREMENT,
+    `nome` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+    `email` varchar(120) COLLATE utf8mb4_general_ci NOT NULL,
+    `senha_hash` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+    `criado_em` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `email_Unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Índices para tabelas despejadas
---
+-- ----------------------------
+-- Tabela: solicitacao
+-- ----------------------------
 
---
--- Índices de tabela `solicitacao`
---
-ALTER TABLE `solicitacao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `criado_por_usuario_id` (`criado_por`);
+DROP TABLE IF EXISTS `solicitacao`;
+CREATE TABLE `solicitacao` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `titulo` varchar(120) COLLATE utf8mb4_general_ci NOT NULL,
+    `setor` varchar(60) COLLATE utf8mb4_general_ci NOT NULL,
+    `prioridade` enum('baixa','media','alta') COLLATE utf8mb4_general_ci NOT NULL,
+    `status` enum('pendente','aprovada','rejeitada') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pendente',
+    `justificativa_decisao` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `criado_por` int NOT NULL,
+    `criado_em` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `criado_por_usuario_id` (`criado_por`),
+    CONSTRAINT `criado_por_usuario_id` FOREIGN KEY (`criado_por`) REFERENCES `usuario` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Índices de tabela `solicitacao_item`
---
-ALTER TABLE `solicitacao_item`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_solicitacao_por_solicitacao` (`solicitacao_id`);
+-- ----------------------------
+-- Tabela: solicitacao_item
+-- ----------------------------
 
---
--- Índices de tabela `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email_Unique` (`email`);
+DROP TABLE IF EXISTS `solicitacao_item`;
+CREATE TABLE `solicitacao_item` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `solicitacao_id` int NOT NULL,
+    `descricao` varchar(120) NOT NULL,
+    `quantidade` decimal(10,2) NOT NULL,
+    `preco_estimado` decimal(10,2) unsigned NOT NULL,
+     PRIMARY KEY (`id`),
+    KEY `id_solicitacao_por_solicitacao` (`solicitacao_id`),
+    CONSTRAINT `id_solicitacao_por_solicitacao` FOREIGN KEY (`solicitacao_id`) REFERENCES `solicitacao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `solicitacao_item_chk_1` CHECK ((`quantidade` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- AUTO_INCREMENT para tabelas despejadas
---
+-- ----------------------------
+-- Seed: usuário de teste
+-- ----------------------------
 
---
--- AUTO_INCREMENT de tabela `solicitacao`
---
-ALTER TABLE `solicitacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+INSERT INTO `usuario` (`nome`, `email`, `senha_hash`) VALUES
+    ('Administrador', 'admin@tutorfiscal.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 
---
--- AUTO_INCREMENT de tabela `solicitacao_item`
---
-ALTER TABLE `solicitacao_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `solicitacao`
---
-ALTER TABLE `solicitacao`
-  ADD CONSTRAINT `criado_por_usuario_id` FOREIGN KEY (`criado_por`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
-
---
--- Restrições para tabelas `solicitacao_item`
---
-ALTER TABLE `solicitacao_item`
-  ADD CONSTRAINT `id_solicitacao_por_solicitacao` FOREIGN KEY (`solicitacao_id`) REFERENCES `solicitacao` (`id`) ON UPDATE CASCADE;
-COMMIT;
-
---
--- Seed de um usuário
---
-INSERT INTO `usuario` (`nome`, `email`, `senha_hash`, `criado_em`) VALUES
-('Administrador', 'admin@tutorfiscal.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW());
-
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

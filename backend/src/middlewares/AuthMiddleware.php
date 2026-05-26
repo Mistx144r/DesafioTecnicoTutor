@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1)
+declare(strict_types=1);
 
 class AuthMiddleware {
     private const int LIFETIME   = 60 * 60 * 2;
