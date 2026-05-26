@@ -7,7 +7,7 @@ import { Button } from '../../components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { SolicitacaoDetalhesModal } from '../components/SolicitacaoDetalhesModal.tsx'
-import { useDebounce } from '../hooks/useDebounce'
+import { useDebounce } from '../hooks/useDebounce.ts'
 
 interface Solicitacao {
     id: number

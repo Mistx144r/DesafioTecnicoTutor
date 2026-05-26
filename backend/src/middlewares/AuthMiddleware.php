@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1)
+
 class AuthMiddleware {
     private const int LIFETIME   = 60 * 60 * 2;
     private const int IDLE_LIMIT = 60 * 30;
