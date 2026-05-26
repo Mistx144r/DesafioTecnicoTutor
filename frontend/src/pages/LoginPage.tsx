@@ -1,4 +1,4 @@
-import Logo from '/Logo_Dark.png'
+import Logo from '../assets/Logo_Dark.png'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'

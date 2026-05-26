@@ -1,5 +1,5 @@
-import Logo from '../../public/Logo_White.png'
-import LogoMobile from '../../public/Logo_White_Mobile.png'
+import Logo from '../assets/Logo_White.png'
+import LogoMobile from '../assets/Logo_White_Mobile.png'
 import { Button } from '../../components/ui/button'
 import { LogOut } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
